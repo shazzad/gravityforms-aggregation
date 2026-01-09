@@ -1147,8 +1147,6 @@ class GFPayFast extends GFPaymentAddOn {
 	}
 
 	public function admin_update_payment( $form, $lead_id ) {
-		homelocal_log( 'admin_update_payment 1' );
-
 		check_admin_referer( 'gforms_save_entry', 'gforms_save_entry' );
 		//update payment information in admin, need to use this function so the lead data is updated before displayed in the sidebar info section
 		$form_action = strtolower( rgpost( 'save' ) );
@@ -1194,8 +1192,6 @@ class GFPayFast extends GFPaymentAddOn {
 		$lead['payment_date'] = $payment_date;
 		$lead['transaction_id'] = $payment_transaction;
 
-		homelocal_log( 'admin_update_payment 2' );
-
 		// if payment status does not equal approved/paid or the lead has already been fulfilled, do not continue with fulfillment
 		if ( ( $payment_status == 'Approved' || $payment_status == 'Paid' ) && ! $lead['is_fulfilled'] ) {
 			$action['id'] = $payment_transaction;
@@ -1204,13 +1200,9 @@ class GFPayFast extends GFPaymentAddOn {
 			$action['amount'] = $payment_amount;
 			$action['entry_id'] = $lead['id'];
 
-			homelocal_log( 'admin_update_payment 3' );
 			$this->complete_payment( $lead, $action );
 			$this->fulfill_order( $lead, $payment_transaction, $payment_amount );
-			homelocal_log( 'admin_update_payment 4' );
 		}
-
-		homelocal_log( 'admin_update_payment 5' );
 
 		//update lead, add a note
 		GFAPI::update_entry( $lead );
@@ -1524,10 +1516,6 @@ class GFPayFast extends GFPaymentAddOn {
 	): void {
 		$payfastRequest = new PaymentRequest( $this->get_plugin_setting( 'gf_payfast_debug' ) === '1' );
 
-		homelocal_log( 'Payment Status', [
-			'pfData' => $pfData,
-		] );
-
 		if ( ! empty( $pfData['custom_str2'] ) ) {
 			$sendAdminMail = true;
 			$notificationAdminId = array( $pfData['custom_str2'] );
@@ -1688,7 +1676,6 @@ class GFPayFast extends GFPaymentAddOn {
 
 	/**
 	 * @param bool $sendAdminMail
-	 * @param Request $payfastRequest
 	 * @param array|null $notificationAdminId
 	 * @param $form
 	 * @param $entry
@@ -1722,26 +1709,26 @@ class GFPayFast extends GFPaymentAddOn {
 
 	/**
 	 * @param bool $hasToken
-	 * @param mixed $customDate
+	 * @param string $customDate
 	 * @param string $currentDate
-	 * @param mixed $paymentId
+	 * @param string $paymentId
 	 * @param $form
 	 * @param $entry
-	 * @param mixed $transactionId
-	 * @param mixed $amountGross
+	 * @param string $transactionId
+	 * @param string $amountGross
 	 * @param string $paymentDate
 	 *
 	 * @return void
 	 */
 	public function handleTransactionCompletion(
 		bool $hasToken,
-		mixed $customDate,
+		string $customDate,
 		string $currentDate,
-		mixed $paymentId,
+		string $paymentId,
 		$form,
 		$entry,
-		mixed $transactionId,
-		mixed $amountGross,
+		string $transactionId,
+		string $amountGross,
 		string $paymentDate
 	): void {
 		if ( ! $hasToken || strtotime( $customDate ) <= strtotime( $currentDate ) ) {
