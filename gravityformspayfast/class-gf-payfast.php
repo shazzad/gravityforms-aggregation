@@ -659,60 +659,19 @@ class GFPayFast extends GFPaymentAddOn {
 	}
 
 	public function return_url( $form_id, $lead_id ) {
-		$pageURL = GFCommon::is_ssl() ? 'https://' : 'http://';
-
-		// Get the SERVER_PORT, defaulting to 80 if not set.
-		// Use filter_input for safer retrieval of superglobal values.
-		$server_port = filter_input( INPUT_SERVER, 'SERVER_PORT', FILTER_SANITIZE_NUMBER_INT );
-		if ( false === $server_port || null === $server_port ) {
-			$server_port = 80; // Default to 80 if SERVER_PORT is not set or invalid.
-		}
-		$server_port = apply_filters( 'gform_payfast_return_url_port', $server_port );
-
-
-		// Safely get SERVER_NAME and REQUEST_URI.
-		// HTTP_HOST is generally preferred over SERVER_NAME as it comes from the client request.
-		$server_name = filter_input(
-			INPUT_SERVER,
-			'HTTP_HOST',
-			FILTER_SANITIZE_URL
-		); // Or FILTER_UNSAFE_RAW if you need to manually validate parts.
-		if ( false === $server_name || null === $server_name ) {
-			$server_name = filter_input( INPUT_SERVER, 'SERVER_NAME', FILTER_SANITIZE_URL );
-		}
-
-		$request_uri = filter_input(
-			INPUT_SERVER,
-			'REQUEST_URI',
-			FILTER_SANITIZE_URL
-		); // Or FILTER_UNSAFE_RAW if you need to manually validate parts.
-
-		// If SERVER_NAME or REQUEST_URI are not set, it's problematic to construct a URL.
-		// Consider how you want to handle this edge case (e.g., throw an error, return empty, or use a fallback).
-		// For now, we'll proceed, but be aware.
-		if ( empty( $server_name ) ) {
-			// Fallback for extremely unusual cases, or handle as an error.
-			// For production, you might want a more robust fallback or logging.
-			$server_name = get_site_url(); // Or home_url(), depending on context.
-			$parsed_url = wp_parse_url( $server_name );
-			$server_name = ! empty( $parsed_url['host'] ) ? $parsed_url['host'] : $server_name;
-		}
+		// Get the REQUEST_URI path to preserve the current page path
+		$request_uri = filter_input( INPUT_SERVER, 'REQUEST_URI', FILTER_SANITIZE_URL );
 		if ( empty( $request_uri ) ) {
-			// Fallback for extremely unusual cases.
 			$request_uri = '/';
 		}
 
-
-		if ( (int) $server_port !== 80 && (int) $server_port !== 443 ) { // Also check for 443 for HTTPS if it's not handled by is_ssl()
-			$pageURL .= $server_name . ':' . $server_port . $request_uri;
-		} else {
-			$pageURL .= $server_name . $request_uri;
-		}
+		// Use home_url() to build the base URL (handles SSL, port, and domain automatically)
+		$base_url = home_url( $request_uri );
 
 		$ids_query = "ids={$form_id}|{$lead_id}";
 		$ids_query .= '&hash=' . wp_hash( $ids_query );
 
-		return add_query_arg( 'gf_payfast_return', base64_encode( $ids_query ), $pageURL );
+		return add_query_arg( 'gf_payfast_return', base64_encode( $ids_query ), $base_url );
 	}
 
 
