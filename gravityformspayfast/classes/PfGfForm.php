@@ -20,9 +20,9 @@ class PfGfForm extends GFPaymentAddOn {
 					'Merchant ID',
 					'gravityformspayfast'
 				) . GFPayFast::H6_TAG_END . __(
-						'Enter your Merchant ID.',
-						'gravityformspayfast'
-					)
+					'Enter your Merchant ID.',
+					'gravityformspayfast'
+				)
 			),
 			array(
 				'name'     => 'payfastMerchantKey',
@@ -34,9 +34,9 @@ class PfGfForm extends GFPaymentAddOn {
 					'Merchant Key',
 					'gravityformspayfast'
 				) . GFPayFast::H6_TAG_END . __(
-						'Enter your Merchant Key.',
-						'gravityformspayfast'
-					)
+					'Enter your Merchant Key.',
+					'gravityformspayfast'
+				)
 			),
 			array(
 				'name'     => 'passphrase',
@@ -48,26 +48,26 @@ class PfGfForm extends GFPaymentAddOn {
 					'Passphrase',
 					'gravityformspayfast'
 				) . GFPayFast::H6_TAG_END . __(
-						'Only enter a passphrase if it is set on your Payfast Aggregation account.',
-						'gravityformspayfast'
-					)
+					'Only enter a passphrase if it is set on your Payfast Aggregation account.',
+					'gravityformspayfast'
+				)
 			),
 			array(
 				'name'          => 'mode',
 				'label'         => __( 'Mode', 'gravityformspayfast' ),
 				'type'          => 'radio',
 				'choices'       => array(
-						array(
-							'id'    => 'gf_payfast_mode_production',
-							'label' => __( 'Production', 'gravityformspayfast' ),
-							'value' => 'production'
-						),
-						array(
-							'id'    => 'gf_payfast_mode_test',
-							'label' => __( 'Test', 'gravityformspayfast' ),
-							'value' => 'test'
-						),
+					array(
+						'id'    => 'gf_payfast_mode_production',
+						'label' => __( 'Production', 'gravityformspayfast' ),
+						'value' => 'production'
 					),
+					array(
+						'id'    => 'gf_payfast_mode_test',
+						'label' => __( 'Test', 'gravityformspayfast' ),
+						'value' => 'test'
+					),
+				),
 				'horizontal'    => true,
 				'default_value' => 'production',
 				'tooltip'       => GFPayFast::H6_TAG . __( 'Mode', 'gravityformspayfast' ) . GFPayFast::H6_TAG_END . __(
@@ -108,11 +108,11 @@ class PfGfForm extends GFPaymentAddOn {
 				'gravityformspayfast'
 			),
 			'choices' => array(
-					array(
-						'label' => __( 'Create post only when payment is received.', 'gravityformspayfast' ),
-						'name'  => 'delayPost'
-					),
+				array(
+					'label' => __( 'Create post only when payment is received.', 'gravityformspayfast' ),
+					'name'  => 'delayPost'
 				),
+			),
 		);
 	}
 
@@ -128,11 +128,11 @@ class PfGfForm extends GFPaymentAddOn {
 			//    'horizontal' => true,
 			'required' => true,
 			'choices'  => array(
-					array( 'label' => __( 'Monthly', 'gravityformspayfast' ), 'name' => 'monthly', 'value' => '3' ),
-					array( 'label' => __( 'Quarterly', 'gravityformspayfast' ), 'name' => 'quarterly', 'value' => '4' ),
-					array( 'label' => __( 'Biannual', 'gravityformspayfast' ), 'name' => 'biannual', 'value' => '5' ),
-					array( 'label' => __( 'Annual', 'gravityformspayfast' ), 'name' => 'annual', 'value' => '6' )
-				),
+				array( 'label' => __( 'Monthly', 'gravityformspayfast' ), 'name' => 'monthly', 'value' => '3' ),
+				array( 'label' => __( 'Quarterly', 'gravityformspayfast' ), 'name' => 'quarterly', 'value' => '4' ),
+				array( 'label' => __( 'Biannual', 'gravityformspayfast' ), 'name' => 'biannual', 'value' => '5' ),
+				array( 'label' => __( 'Annual', 'gravityformspayfast' ), 'name' => 'annual', 'value' => '6' )
+			),
 			'tooltip'  => GFPayFast::H6_TAG . __( 'Frequency', 'gravityformspayfast' ) . GFPayFast::H6_TAG_END . __(
 				'Frequency.',
 				'gravityformspayfast'
@@ -154,9 +154,9 @@ class PfGfForm extends GFPaymentAddOn {
 				'Initial Amount',
 				'gravityformspayfast'
 			) . GFPayFast::H6_TAG_END . esc_html__(
-					"Select which field determines the initial payment amount, or select 'Form Total' to use the total of all pricing fields as the recurring amount.",
-					'gravityformspayfast'
-				),
+				"Select which field determines the initial payment amount, or select 'Form Total' to use the total of all pricing fields as the recurring amount.",
+				'gravityformspayfast'
+			),
 		);
 	}
 
@@ -191,13 +191,13 @@ class PfGfForm extends GFPaymentAddOn {
 			'</p>
             <ul>
                 <li>' . __(
-				'The Payfast Aggregation settings are configured per form. Navigate to \'Forms\' -> select \'Settings\' for the form, and select the \'Payfast Aggregation\' tab.',
-				'gravityformspayfast'
-			) . '</li>' .
+			'The Payfast Aggregation settings are configured per form. Navigate to \'Forms\' -> select \'Settings\' for the form, and select the \'Payfast Aggregation\' tab.',
+			'gravityformspayfast'
+		) . '</li>' .
 			'<li>' . __(
-				'From there, click \'Add New\' to configure Payfast Aggregation feed settings for the currently selected form.',
-				'gravityformspayfast'
-			) . '</li>' .
+			'From there, click \'Add New\' to configure Payfast Aggregation feed settings for the currently selected form.',
+			'gravityformspayfast'
+		) . '</li>' .
 			'</ul>
             <p style="text-align: left;">' .
 			__(
@@ -254,9 +254,9 @@ class PfGfForm extends GFPaymentAddOn {
 					'Notifications',
 					'gravityformspayfast'
 				) . GFPayFast::H6_TAG_END . __(
-						"Enable this option if you would like to only send out this form's notifications after payment has been received. Leaving this option disabled will send notifications immediately after the form is submitted.",
-						'gravityformspayfast'
-					)
+					"Enable this option if you would like to only send out this form's notifications after payment has been received. Leaving this option disabled will send notifications immediately after the form is submitted.",
+					'gravityformspayfast'
+				)
 			),
 		);
 	}

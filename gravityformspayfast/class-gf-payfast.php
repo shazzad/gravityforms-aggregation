@@ -445,7 +445,7 @@ class GFPayFast extends GFPaymentAddOn {
 		$return_url = $this->return_url( $form['id'], $entry['id'] ) . "&rm={$return_mode}";
 
 		//Cancel URL
-		$cancel_url = $feed['meta']['cancelUrl'] ?? '';
+		$cancel_url = ! empty( $feed['meta']['cancelUrl'] ) ? $feed['meta']['cancelUrl'] : $this->cancel_url();
 
 		//URL that will listen to notifications from Payfast
 		$itn_url = get_bloginfo( 'url' ) . '/?page=gf_payfast_itn';
@@ -672,6 +672,17 @@ class GFPayFast extends GFPaymentAddOn {
 		$ids_query .= '&hash=' . wp_hash( $ids_query );
 
 		return add_query_arg( 'gf_payfast_return', base64_encode( $ids_query ), $base_url );
+	}
+
+	public function cancel_url() {
+		// Get the REQUEST_URI path to preserve the current page path
+		$request_uri = filter_input( INPUT_SERVER, 'REQUEST_URI', FILTER_SANITIZE_URL );
+		if ( empty( $request_uri ) ) {
+			$request_uri = '/';
+		}
+
+		// Use home_url() to build the base URL (handles SSL, port, and domain automatically)
+		return home_url( $request_uri );
 	}
 
 
