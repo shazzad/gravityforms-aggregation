@@ -491,8 +491,7 @@ class GFPayFast extends GFPaymentAddOn {
 			$varArray['amount'] = GFCommon::get_order_total( $form, $entry );
 		}
 
-
-		$varArray['item_name'] = $form['title'];
+		$varArray['item_name'] = apply_filters( 'gform_payfast_item_name', $form['title'], $form, $entry );
 
 		$varArray['custom_int1'] = $feed['meta']['mode'] == 'production' ? 0 : 1;
 

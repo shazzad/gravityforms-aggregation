@@ -4,7 +4,7 @@
 Plugin Name:  Gravity Forms Payfast Aggregation Add-On (Modified)
 Plugin URI:   https://github.com/Payfast/gravityforms-aggregation
 Description:  Integrates Gravity Forms with Payfast Aggregation, a South African payment gateway.
-Version:      2.0.3
+Version:      2.0.4
 Author:       Payfast (Pty) Ltd
 Author URI:   https://payfast.io
 Text Domain:  gravityformspayfast
